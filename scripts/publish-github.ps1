@@ -6,9 +6,8 @@ if (-not (Test-Path $gh)) {
   Write-Error "GitHub CLI not found at $gh. Install from https://cli.github.com/"
 }
 $repoName = "salexpert"
-$remoteUrl = "https://github.com/tahaSawan/$repoName.git"
 
-& $gh auth status 2>$null
+cmd /c "`"$gh`" auth status >nul 2>&1"
 if ($LASTEXITCODE -ne 0) {
   Write-Host "Not logged in to GitHub. Run this first, then re-run this script:" -ForegroundColor Yellow
   Write-Host "  & `"$gh`" auth login" -ForegroundColor Cyan
