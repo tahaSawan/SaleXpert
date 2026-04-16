@@ -14,7 +14,7 @@ export default function ContactInfo() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Email</p>
-              <p className="font-medium text-foreground">hello@salexpert.com</p>
+              <p className="font-medium text-foreground">hello@salexpert.co</p>
             </div>
           </div>
 
