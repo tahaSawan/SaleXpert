@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Mail, Phone, MapPin, Clock } from "lucide-react"
+import { SITE_CONTACT_EMAIL, SITE_LOCATION } from "@/lib/site"
 
 export default function ContactInfo() {
   return (
@@ -14,7 +15,11 @@ export default function ContactInfo() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Email</p>
-              <p className="font-medium text-foreground">hello@salexpert.co</p>
+              <p className="font-medium text-foreground">
+                <a href={`mailto:${SITE_CONTACT_EMAIL}`} className="hover:text-primary hover:underline">
+                  {SITE_CONTACT_EMAIL}
+                </a>
+              </p>
             </div>
           </div>
 
@@ -34,7 +39,7 @@ export default function ContactInfo() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Location</p>
-              <p className="font-medium text-foreground">San Francisco, CA</p>
+              <p className="font-medium text-foreground">{SITE_LOCATION}</p>
             </div>
           </div>
 
@@ -44,7 +49,7 @@ export default function ContactInfo() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Hours</p>
-              <p className="font-medium text-foreground">Mon–Fri, 9am–6pm PT</p>
+              <p className="font-medium text-foreground">Mon–Fri, 9am–6pm CT</p>
             </div>
           </div>
         </div>
