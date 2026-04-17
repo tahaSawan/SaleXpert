@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { XLogo } from "@/components/x-logo"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -32,11 +33,17 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 sm:h-16">
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-            <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center text-primary-foreground font-bold text-sm">
-              S
-            </div>
-            <span className="font-semibold text-base sm:text-lg text-foreground hidden sm:inline">SaleXpert</span>
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 flex-shrink-0 min-w-0 [&_svg]:block"
+            aria-label="SaleXpert home"
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary">
+              <XLogo size={38} variant="onPrimary" />
+            </span>
+            <span className="font-semibold text-base sm:text-lg text-foreground leading-none hidden sm:inline translate-y-[0.5px]">
+              SaleXpert
+            </span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">

@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Github, Linkedin, Twitter, Instagram } from "lucide-react"
+import { XLogo } from "@/components/x-logo"
 import { useCallback } from "react"
 
 export default function Footer() {
@@ -13,11 +14,11 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-12">
           <div className="space-y-4 col-span-2 md:col-span-1 lg:col-span-1">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center text-primary-foreground font-bold text-sm">
-                S
-              </div>
-              <span className="font-semibold text-lg text-foreground">SaleXpert</span>
+            <div className="flex items-center gap-2.5 [&_svg]:block">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary">
+                <XLogo size={38} variant="onPrimary" />
+              </span>
+              <span className="font-semibold text-lg text-foreground leading-none translate-y-[0.5px]">SaleXpert</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
               We build websites that help local service businesses turn searches into calls, quotes, and bookings—clear
