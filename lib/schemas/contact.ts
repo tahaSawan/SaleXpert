@@ -6,6 +6,9 @@ export const contactFormSchema = z.object({
   business: z.string().max(200).optional().default(""),
   phone: z.string().max(40).optional().default(""),
   message: z.string().min(1, "Message is required").max(5000),
+  profession: z.string().max(50).optional().default(""),
+  source: z.string().max(50).optional().default(""),
+  offer: z.string().max(50).optional().default(""),
 })
 
 export type ContactFormInput = z.infer<typeof contactFormSchema>

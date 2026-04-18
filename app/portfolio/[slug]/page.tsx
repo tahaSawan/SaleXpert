@@ -87,8 +87,8 @@ export default async function PortfolioCasePage({ params }: Props) {
           <div className="mt-10 flex flex-col sm:flex-row gap-3">
             <Button asChild>
               <Link href="/contact">
-                Get a quote for your business
-                <ArrowRight className="ml-1" size={18} />
+                Get a free quote for your business
+                <ArrowRight className="ml-1" size={18} aria-hidden />
               </Link>
             </Button>
             <Button asChild variant="outline">

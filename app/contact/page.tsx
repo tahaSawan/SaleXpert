@@ -5,11 +5,19 @@ import ContactForm from "@/components/contact-form"
 import ContactInfo from "@/components/contact-info"
 import FAQ from "@/components/faq"
 import Footer from "@/components/footer"
-import { SITE_NAME } from "@/lib/site"
+import { DEFAULT_SITE_URL, SITE_NAME } from "@/lib/site"
+
+const contactDesc = `Request a quote from ${SITE_NAME}. Tell us your trade, area, and goals—we respond with clear pricing and timeline.`
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Request a quote from ${SITE_NAME}. Tell us your trade, area, and goals—we respond with clear pricing and timeline.`,
+  description: contactDesc,
+  openGraph: {
+    title: `Contact | ${SITE_NAME}`,
+    description: contactDesc,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL}/contact`,
+    type: "website",
+  },
 }
 
 export default function ContactPage() {

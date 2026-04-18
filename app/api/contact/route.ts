@@ -1,32 +1,85 @@
 import { NextResponse } from "next/server"
 import { appendFile, mkdir } from "fs/promises"
 import { join } from "path"
+import nodemailer from "nodemailer"
 import { contactFormSchema } from "@/lib/schemas/contact"
 
 export const runtime = "nodejs"
 
-async function sendViaResend(payload: {
+type LeadPayload = {
   name: string
   email: string
   business: string
   phone: string
   message: string
-}): Promise<boolean> {
-  const key = process.env.RESEND_API_KEY
-  const to = process.env.CONTACT_TO_EMAIL
-  const from = process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev"
+  profession?: string
+  source?: string
+  offer?: string
+}
 
-  if (!key || !to) return false
-
-  const subject = `New lead: ${payload.name}${payload.business ? ` (${payload.business})` : ""}`
+function buildLeadEmail(payload: LeadPayload) {
+  const isAICall = payload.source === 'ai-call'
+  const professionTag = payload.profession ? ` [${payload.profession.toUpperCase()}]` : ''
+  const subject = `${isAICall ? '🤖 AI Call Lead' : 'New lead'}: ${payload.name}${payload.business ? ` (${payload.business})` : ''}${professionTag}`
+  
   const text = [
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
     `Business: ${payload.business || "—"}`,
     `Phone: ${payload.phone || "—"}`,
+    ...(payload.profession ? [`Profession: ${payload.profession}`] : []),
+    ...(payload.source ? [`Source: ${payload.source}`] : []),
+    ...(payload.offer ? [`Offer: ${payload.offer}`] : []),
     "",
     payload.message,
   ].join("\n")
+  return { subject, text }
+}
+
+async function sendViaSmtp(payload: LeadPayload): Promise<boolean> {
+  const host = process.env.SMTP_HOST
+  const user = process.env.SMTP_USER
+  const pass = process.env.SMTP_PASS
+  const to = process.env.CONTACT_TO_EMAIL
+  const port = Number(process.env.SMTP_PORT ?? "587")
+  const from = process.env.CONTACT_FROM_EMAIL ?? user
+
+  if (!host || !user || !pass || !to || !from) return false
+
+  const { subject, text } = buildLeadEmail(payload)
+
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass },
+  })
+
+  try {
+    await transporter.sendMail({
+      from,
+      to,
+      replyTo: payload.email,
+      subject,
+      text,
+    })
+    return true
+  } catch (e) {
+    console.error("[contact] SMTP send failed:", e)
+    return false
+  }
+}
+
+async function sendViaResend(
+  payload: LeadPayload,
+): Promise<{ ok: true } | { ok: false; message?: string }> {
+  const key = process.env.RESEND_API_KEY
+  const to = process.env.CONTACT_TO_EMAIL
+  const from = process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev"
+
+  if (!key || !to) return { ok: false, message: "Missing RESEND_API_KEY or CONTACT_TO_EMAIL." }
+
+  const { subject, text } = buildLeadEmail(payload)
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -43,7 +96,20 @@ async function sendViaResend(payload: {
     }),
   })
 
-  return res.ok
+  if (!res.ok) {
+    const raw = await res.text()
+    let message: string | undefined
+    try {
+      const parsed = JSON.parse(raw) as { message?: string }
+      message = parsed.message
+    } catch {
+      message = raw.slice(0, 300)
+    }
+    console.error("[contact] Resend HTTP", res.status, raw)
+    return { ok: false, message }
+  }
+
+  return { ok: true }
 }
 
 async function appendLocalFile(payload: Record<string, string>) {
@@ -71,13 +137,34 @@ export async function POST(request: Request) {
   }
 
   const data = parsed.data
-  const wantsEmail = Boolean(process.env.RESEND_API_KEY && process.env.CONTACT_TO_EMAIL)
+
+  const smtpConfigured = Boolean(
+    process.env.SMTP_HOST &&
+      process.env.SMTP_USER &&
+      process.env.SMTP_PASS &&
+      process.env.CONTACT_TO_EMAIL,
+  )
+  const resendConfigured = Boolean(process.env.RESEND_API_KEY && process.env.CONTACT_TO_EMAIL)
 
   try {
-    if (wantsEmail) {
-      const ok = await sendViaResend(data)
+    if (smtpConfigured) {
+      const ok = await sendViaSmtp(data)
       if (!ok) {
         return NextResponse.json({ error: "Could not send email. Try again later." }, { status: 502 })
+      }
+      return NextResponse.json({ ok: true, emailed: true })
+    }
+
+    if (resendConfigured) {
+      const result = await sendViaResend(data)
+      if (!result.ok) {
+        return NextResponse.json(
+          {
+            error: "Could not send email. Try again later.",
+            hint: result.message,
+          },
+          { status: 502 },
+        )
       }
       return NextResponse.json({ ok: true, emailed: true })
     }
@@ -88,10 +175,13 @@ export async function POST(request: Request) {
       business: data.business ?? "",
       phone: data.phone ?? "",
       message: data.message,
+      profession: data.profession ?? "",
+      source: data.source ?? "",
+      offer: data.offer ?? "",
     })
 
     if (process.env.NODE_ENV === "production") {
-      console.info("[contact] Lead (configure RESEND_API_KEY + CONTACT_TO_EMAIL):", data.email)
+      console.info("[contact] Lead — set SMTP_* or RESEND_API_KEY + CONTACT_TO_EMAIL:", data.email)
     }
 
     return NextResponse.json({ ok: true, emailed: false })

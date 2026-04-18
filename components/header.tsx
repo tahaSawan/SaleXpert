@@ -72,7 +72,7 @@ export default function Header() {
           <div className="hidden sm:flex items-center">
             <Link href="/contact">
               <Button size="sm" className="font-semibold">
-                Get a quote
+                Get a free quote
               </Button>
             </Link>
           </div>
@@ -110,7 +110,7 @@ export default function Header() {
             ))}
             <div className="pt-2">
               <Link href="/contact" className="w-full block" onClick={() => setIsOpen(false)}>
-                <Button className="w-full font-semibold">Get a quote</Button>
+                <Button className="w-full font-semibold">Get a free quote</Button>
               </Link>
             </div>
           </nav>

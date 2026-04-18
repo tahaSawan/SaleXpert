@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Loader2, Send } from "lucide-react"
 import { toast } from "sonner"
@@ -13,8 +13,27 @@ export default function ContactForm() {
     business: "",
     message: "",
     phone: "",
+    profession: "",
+    source: "",
+    offer: ""
   })
   const [pending, setPending] = useState(false)
+
+  // Capture URL parameters for tracking AI bot calls
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const profession = urlParams.get('profession') || ''
+    const source = urlParams.get('source') || ''
+    const offer = urlParams.get('offer') || ''
+    
+    setFormState(prev => ({
+      ...prev,
+      profession,
+      source,
+      offer,
+      message: profession ? `I'm interested in a website for my ${profession} business.` : prev.message
+    }))
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState((prev) => ({
@@ -32,16 +51,38 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formState),
       })
-      const data = (await res.json()) as { ok?: boolean; error?: string; details?: Record<string, string[]> }
+      const data = (await res.json()) as {
+        ok?: boolean
+        emailed?: boolean
+        error?: string
+        hint?: string
+        details?: Record<string, string[]>
+      }
 
       if (!res.ok) {
-        const msg = data.error ?? "Something went wrong."
+        const base = data.error ?? "Something went wrong."
+        const msg = data.hint ? `${base} ${data.hint}` : base
         toast.error(msg)
         return
       }
 
-      toast.success("Thanks—we received your message and will get back to you soon.")
-      setFormState({ name: "", email: "", business: "", message: "", phone: "" })
+      const devLocalOnly =
+        process.env.NODE_ENV === "development" && data.emailed === false
+      toast.success(
+        devLocalOnly
+          ? "Saved locally (see data/leads.jsonl). Add SMTP_* (e.g. Gmail) or RESEND_API_KEY to your .env to receive real emails."
+          : "Thanks—we received your message and will get back to you soon.",
+      )
+      setFormState({ 
+        name: "", 
+        email: "", 
+        business: "", 
+        message: "", 
+        phone: "",
+        profession: formState.profession,
+        source: formState.source, 
+        offer: formState.offer
+      })
     } catch {
       toast.error("Network error. Check your connection and try again.")
     } finally {
@@ -51,7 +92,9 @@ export default function ContactForm() {
 
   return (
     <div className="glass p-6 sm:p-8 h-fit sticky top-20 sm:top-24">
-      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Send us a message</h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">
+        {formState.source === "ai-call" ? "Get your website quote" : "Send us a message"}
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
         <div>

@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { Github, Linkedin, Twitter, Instagram } from "lucide-react"
 import { XLogo } from "@/components/x-logo"
 import { useCallback } from "react"
 
@@ -106,22 +105,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">© 2026 SaleXpert. All rights reserved.</p>
-          <div className="flex gap-5">
-            <Link href="/" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Twitter">
-              <Twitter size={18} />
-            </Link>
-            <Link href="/" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="LinkedIn">
-              <Linkedin size={18} />
-            </Link>
-            <Link href="/" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="GitHub">
-              <Github size={18} />
-            </Link>
-            <Link href="/" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Instagram">
-              <Instagram size={18} />
-            </Link>
-          </div>
+        <div className="border-t border-border pt-8">
+          <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
+            © 2026 SaleXpert. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

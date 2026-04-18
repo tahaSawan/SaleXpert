@@ -136,8 +136,8 @@ export default function PortfolioContent() {
             href="/contact"
             className="inline-flex items-center justify-center rounded-md text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
           >
-            Get a quote
-            <ArrowRight className="ml-2 w-5 h-5" />
+            Get a free quote
+            <ArrowRight className="ml-2 w-5 h-5" aria-hidden />
           </Link>
         </div>
       </div>

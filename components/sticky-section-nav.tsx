@@ -9,7 +9,7 @@ const sections = [
   { id: "services", label: "Pricing" },
   { id: "industries", label: "Industries" },
   { id: "examples", label: "Examples" },
-  { id: "testimonials", label: "Testimonials" },
+  { id: "testimonials", label: "Client stories" },
   { id: "faq", label: "FAQ" },
   { id: "contact", label: "Contact" },
 ]

@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import Header from "@/components/header"
@@ -12,6 +12,15 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+  ],
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -36,14 +45,15 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: `${SITE_NAME} — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
-    images: [
-      {
-        url: `${siteUrl}/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: `${SITE_NAME} — ${SITE_TAGLINE}`,
-      },
-    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],

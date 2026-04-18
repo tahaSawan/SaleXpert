@@ -7,9 +7,12 @@ import WhatWeOffer from "@/components/what-we-offer"
 import CapabilitiesSection from "@/components/capabilities-section"
 import Services from "@/components/services"
 import BusinessCategories from "@/components/business-categories"
+import ROICalculator from "@/components/roi-calculator"
+import BeforeAfterShowcase from "@/components/before-after-showcase"
 import FeaturedWork from "@/components/featured-work"
 import TestimonialsSection from "@/components/testimonials-section"
 import Features from "@/components/features"
+import GuaranteeSection from "@/components/guarantee-section"
 import HomeFaq from "@/components/home-faq"
 import CTA from "@/components/cta"
 import Footer from "@/components/footer"
@@ -26,9 +29,12 @@ export default function Home() {
       <CapabilitiesSection />
       <Services />
       <BusinessCategories />
+      <ROICalculator />
+      <BeforeAfterShowcase />
       <FeaturedWork />
       <TestimonialsSection />
       <Features />
+      <GuaranteeSection />
       <HomeFaq />
       <CTA />
       <Footer />

@@ -40,13 +40,13 @@ export default function Hero() {
             </ul>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-              <Link href="/contact" className="w-full sm:w-auto">
+              <Link href="/contact" className="w-full sm:w-auto" aria-describedby="hero-cta-hint">
                 <Button
                   size="lg"
                   className="w-full sm:w-auto h-12 sm:h-14 text-base font-semibold bg-white text-slate-950 hover:bg-white/90"
                 >
                   Get a free quote
-                  <ArrowRight size={18} className="ml-1" />
+                  <ArrowRight size={18} className="ml-1" aria-hidden />
                 </Button>
               </Link>
               <Link href="/portfolio" className="w-full sm:w-auto">
@@ -54,13 +54,16 @@ export default function Hero() {
                   size="lg"
                   variant="outline"
                   className="w-full sm:w-auto h-12 sm:h-14 text-base font-semibold border-white/35 bg-transparent text-white hover:bg-white/10 hover:text-white"
+                  aria-label="View example portfolio sites"
                 >
                   View example sites
                 </Button>
               </Link>
             </div>
 
-            <p className="text-sm text-white/55">No obligation—tell us your trade and area, we&apos;ll reply with options.</p>
+            <p id="hero-cta-hint" className="text-sm text-white/55">
+              No obligation—tell us your trade and area, we&apos;ll reply with options.
+            </p>
           </div>
 
           <div className="relative flex justify-center w-full">
