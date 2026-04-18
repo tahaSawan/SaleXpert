@@ -96,7 +96,7 @@ export default function Services() {
                     className="w-full mb-8 font-semibold h-11"
                     variant={service.highlighted ? "default" : "outline"}
                   >
-                    <Link href="/contact">Request this plan</Link>
+                    <Link href="/contact">Get a quote for this plan</Link>
                   </Button>
 
                   <div className="space-y-3 flex-1">

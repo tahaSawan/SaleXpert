@@ -3,9 +3,9 @@ import { PageHero } from "@/components/page-hero"
 export default function ContactHero() {
   return (
     <PageHero
-      eyebrow="Contact"
-      title="Request a quote"
-      subtitle="Tell SaleXpert your trade, location, and what you want visitors to do (call, book, quote). We&apos;ll respond with pricing and timeline—not a sales essay."
+      eyebrow="Free quote"
+      title="Tell us what you need"
+      subtitle="Share your trade, service area, and how you like to be reached. We reply with a scoped price and timeline—clear and direct, not a long sales process."
     />
   )
 }

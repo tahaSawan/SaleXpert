@@ -12,9 +12,9 @@ const pillars = [
   },
   {
     icon: MessageCircle,
-    title: "How we connect with businesses",
-    body: "We reach out to trades and local providers—electricians, plumbers, dentists, and similar—when we think a stronger website could help. If we’ve contacted you, the conversation is about getting you online or upgrading what you have, not selling unrelated tools or software.",
-    foot: "No pressure: if it’s not the right time, that’s fine. When you’re ready, we’re happy to scope something that fits.",
+    title: "Built for real local businesses",
+    body: "We focus on owners who serve customers in a city or region—contractors, health and wellness, food and retail, professional services, and more. Same goal everywhere: make it obvious what you do and easy to get in touch.",
+    foot: "No pressure: browse the site, check sample layouts, and reach out when you want a quote or a quick opinion on what you have today.",
   },
 ]
 

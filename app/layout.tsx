@@ -3,15 +3,16 @@ import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import Header from "@/components/header"
+import StickyLeadCta from "@/components/sticky-lead-cta"
 import ScrollToTop from "@/components/scroll-to-top"
 import { AppToaster } from "@/components/app-toaster"
-import { DEFAULT_SITE_URL, SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE } from "@/lib/site"
+import { resolveSiteUrl, SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE } from "@/lib/site"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
+const siteUrl = resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -32,9 +33,9 @@ export const metadata: Metadata = {
   keywords: [
     "small business website",
     "local service website",
-    "plumber website",
     "trade website design",
     "website for contractors",
+    "local business website",
     SITE_NAME,
   ],
   authors: [{ name: SITE_NAME }],
@@ -68,10 +69,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`}>
+      <body className="font-sans antialiased pb-[5.25rem] sm:pb-20">
         <ScrollToTop />
         <Header />
         {children}
+        <StickyLeadCta />
         <AppToaster />
         <Analytics />
       </body>

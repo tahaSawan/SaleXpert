@@ -11,25 +11,26 @@ type LeadPayload = {
   email: string
   business: string
   phone: string
+  serviceArea: string
+  preferredContact: "email" | "phone" | "either"
   message: string
-  profession?: string
-  source?: string
-  offer?: string
 }
 
 function buildLeadEmail(payload: LeadPayload) {
-  const isAICall = payload.source === 'ai-call'
-  const professionTag = payload.profession ? ` [${payload.profession.toUpperCase()}]` : ''
-  const subject = `${isAICall ? '🤖 AI Call Lead' : 'New lead'}: ${payload.name}${payload.business ? ` (${payload.business})` : ''}${professionTag}`
-  
+  const subject = `New lead: ${payload.name}${payload.business ? ` (${payload.business})` : ""}`
+  const contactPref =
+    payload.preferredContact === "either"
+      ? "Email or phone"
+      : payload.preferredContact === "email"
+        ? "Email"
+        : "Phone"
   const text = [
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
     `Business: ${payload.business || "—"}`,
     `Phone: ${payload.phone || "—"}`,
-    ...(payload.profession ? [`Profession: ${payload.profession}`] : []),
-    ...(payload.source ? [`Source: ${payload.source}`] : []),
-    ...(payload.offer ? [`Offer: ${payload.offer}`] : []),
+    `Service area: ${payload.serviceArea || "—"}`,
+    `Preferred contact: ${contactPref}`,
     "",
     payload.message,
   ].join("\n")
@@ -174,10 +175,9 @@ export async function POST(request: Request) {
       email: data.email,
       business: data.business ?? "",
       phone: data.phone ?? "",
+      serviceArea: data.serviceArea ?? "",
+      preferredContact: data.preferredContact,
       message: data.message,
-      profession: data.profession ?? "",
-      source: data.source ?? "",
-      offer: data.offer ?? "",
     })
 
     if (process.env.NODE_ENV === "production") {

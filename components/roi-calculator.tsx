@@ -29,9 +29,9 @@ export default function ROICalculator() {
     <section className="py-20 sm:py-24 border-b border-border bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="ROI Calculator"
-          title="See how much more you could earn"
-          subtitle="Calculate the potential return on your website investment based on your business type and goals."
+          eyebrow="Run the numbers"
+          title="What a few extra jobs per month could mean"
+          subtitle="Adjust your trade and assumptions—this is an illustrative model, not a promise of results."
         />
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">

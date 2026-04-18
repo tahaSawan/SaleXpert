@@ -7,7 +7,7 @@ import FAQ from "@/components/faq"
 import Footer from "@/components/footer"
 import { DEFAULT_SITE_URL, SITE_NAME } from "@/lib/site"
 
-const contactDesc = `Request a quote from ${SITE_NAME}. Tell us your trade, area, and goals—we respond with clear pricing and timeline.`
+const contactDesc = `Request a free quote from ${SITE_NAME}. Tell us your trade, service area, and goals—we respond with clear pricing and timeline.`
 
 export const metadata: Metadata = {
   title: "Contact",

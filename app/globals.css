@@ -185,4 +185,99 @@
     background-size: 100% 100%;
     animation: none;
   }
+
+  /* Hero: rotating word + entrance (respect reduced motion below) */
+  @keyframes hero-rotate-word {
+    from {
+      opacity: 0;
+      transform: translateY(0.35em);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-rotate-word {
+    animation: hero-rotate-word 0.48s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-fade-up {
+    animation: hero-fade-up 0.65s ease-out forwards;
+    opacity: 0;
+  }
+
+  .hero-fade-up-delay {
+    animation: hero-fade-up 0.65s ease-out 0.1s forwards;
+    opacity: 0;
+  }
+
+  .hero-fade-up-delay-2 {
+    animation: hero-fade-up 0.65s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+
+  @keyframes trust-chip-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .trust-chip-in {
+    animation-name: trust-chip-in;
+    animation-duration: 0.45s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    opacity: 0;
+  }
+
+  @keyframes interest-card-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .interest-card-in {
+    animation-name: interest-card-in;
+    animation-duration: 0.55s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rotate-word {
+    animation: none;
+  }
+  .hero-fade-up,
+  .hero-fade-up-delay,
+  .hero-fade-up-delay-2,
+  .trust-chip-in,
+  .interest-card-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }

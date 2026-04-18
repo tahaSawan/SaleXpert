@@ -3,6 +3,7 @@
 import Link from "next/link"
 
 const sections = [
+  { id: "interest", label: "Why it matters" },
   { id: "process", label: "Process" },
   { id: "offer", label: "What we offer" },
   { id: "capabilities", label: "Capabilities" },

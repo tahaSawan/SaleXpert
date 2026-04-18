@@ -1,44 +1,31 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Loader2, Send } from "lucide-react"
 import { toast } from "sonner"
+
+const inputClass =
+  "w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-60"
 
 export default function ContactForm() {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
     business: "",
-    message: "",
     phone: "",
-    profession: "",
-    source: "",
-    offer: ""
+    serviceArea: "",
+    preferredContact: "either" as "email" | "phone" | "either",
+    message: "",
   })
   const [pending, setPending] = useState(false)
 
-  // Capture URL parameters for tracking AI bot calls
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const profession = urlParams.get('profession') || ''
-    const source = urlParams.get('source') || ''
-    const offer = urlParams.get('offer') || ''
-    
-    setFormState(prev => ({
-      ...prev,
-      profession,
-      source,
-      offer,
-      message: profession ? `I'm interested in a website for my ${profession} business.` : prev.message
-    }))
-  }, [])
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
     setFormState((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: name === "preferredContact" ? (value as typeof prev.preferredContact) : value,
     }))
   }
 
@@ -71,17 +58,16 @@ export default function ContactForm() {
       toast.success(
         devLocalOnly
           ? "Saved locally (see data/leads.jsonl). Add SMTP_* (e.g. Gmail) or RESEND_API_KEY to your .env to receive real emails."
-          : "Thanks—we received your message and will get back to you soon.",
+          : "Thanks—we received your quote request and will get back to you soon.",
       )
-      setFormState({ 
-        name: "", 
-        email: "", 
-        business: "", 
-        message: "", 
+      setFormState({
+        name: "",
+        email: "",
+        business: "",
         phone: "",
-        profession: formState.profession,
-        source: formState.source, 
-        offer: formState.offer
+        serviceArea: "",
+        preferredContact: "either",
+        message: "",
       })
     } catch {
       toast.error("Network error. Check your connection and try again.")
@@ -92,9 +78,11 @@ export default function ContactForm() {
 
   return (
     <div className="glass p-6 sm:p-8 h-fit sticky top-20 sm:top-24">
-      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">
-        {formState.source === "ai-call" ? "Get your website quote" : "Send us a message"}
-      </h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Request a free quote</h2>
+      <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+        This is the main step—tell us what you do, where you work, and how you like to be reached. We reply with
+        pricing and timeline, not a hard sell.
+      </p>
 
       <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
         <div>
@@ -108,7 +96,7 @@ export default function ContactForm() {
             disabled={pending}
             autoComplete="name"
             placeholder="Your name"
-            className="w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-60"
+            className={inputClass}
           />
         </div>
 
@@ -123,7 +111,7 @@ export default function ContactForm() {
             disabled={pending}
             autoComplete="email"
             placeholder="your@email.com"
-            className="w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-60"
+            className={inputClass}
           />
         </div>
 
@@ -137,7 +125,7 @@ export default function ContactForm() {
             disabled={pending}
             autoComplete="organization"
             placeholder="Your business name"
-            className="w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-60"
+            className={inputClass}
           />
         </div>
 
@@ -151,21 +139,52 @@ export default function ContactForm() {
             disabled={pending}
             autoComplete="tel"
             placeholder="Your phone number"
-            className="w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-60"
+            className={inputClass}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-foreground mb-2">Message *</label>
+          <label className="block text-sm font-semibold text-foreground mb-2">
+            City / region / ZIP <span className="font-normal text-muted-foreground">(optional)</span>
+          </label>
+          <input
+            type="text"
+            name="serviceArea"
+            value={formState.serviceArea}
+            onChange={handleChange}
+            disabled={pending}
+            autoComplete="address-level2"
+            placeholder="e.g. Dallas metro, 75201"
+            className={inputClass}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-foreground mb-2">Best way to reach you</label>
+          <select
+            name="preferredContact"
+            value={formState.preferredContact}
+            onChange={handleChange}
+            disabled={pending}
+            className={inputClass}
+          >
+            <option value="either">Email or phone—either is fine</option>
+            <option value="email">Email preferred</option>
+            <option value="phone">Phone preferred</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-foreground mb-2">Project details *</label>
           <textarea
             name="message"
             value={formState.message}
             onChange={handleChange}
             required
             disabled={pending}
-            placeholder="Tell us about your project..."
+            placeholder="Your trade or industry, what you want the site to achieve, and any must-haves (booking, gallery, etc.)"
             rows={5}
-            className="w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none disabled:opacity-60"
+            className={`${inputClass} resize-none`}
           />
         </div>
 
@@ -177,7 +196,7 @@ export default function ContactForm() {
             </>
           ) : (
             <>
-              Send message <Send size={18} />
+              Send quote request <Send size={18} />
             </>
           )}
         </Button>

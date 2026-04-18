@@ -1,5 +1,6 @@
 import Hero from "@/components/hero"
 import StickySectionNav from "@/components/sticky-section-nav"
+import AidaInterestSection from "@/components/aida-interest-section"
 import TrustStrip from "@/components/trust-strip"
 import HowItWorks from "@/components/how-it-works"
 import StatsBar from "@/components/stats-bar"
@@ -17,11 +18,13 @@ import HomeFaq from "@/components/home-faq"
 import CTA from "@/components/cta"
 import Footer from "@/components/footer"
 
+/** Homepage narrative (AIDA): Attention → Interest → Desire → Action. */
 export default function Home() {
   return (
     <main className="overflow-hidden">
       <Hero />
       <StickySectionNav />
+      <AidaInterestSection />
       <TrustStrip />
       <HowItWorks />
       <StatsBar />

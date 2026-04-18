@@ -5,10 +5,10 @@ export const contactFormSchema = z.object({
   email: z.string().email("Valid email required").max(254),
   business: z.string().max(200).optional().default(""),
   phone: z.string().max(40).optional().default(""),
+  /** City, region, or ZIP—helps qualify the lead */
+  serviceArea: z.string().max(120).optional().default(""),
+  preferredContact: z.enum(["email", "phone", "either"]).default("either"),
   message: z.string().min(1, "Message is required").max(5000),
-  profession: z.string().max(50).optional().default(""),
-  source: z.string().max(50).optional().default(""),
-  offer: z.string().max(50).optional().default(""),
 })
 
 export type ContactFormInput = z.infer<typeof contactFormSchema>

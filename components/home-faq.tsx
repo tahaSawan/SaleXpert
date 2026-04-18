@@ -11,8 +11,8 @@ const items = [
     a: "Most brochure-style sites launch within about one to two weeks after we have your content and branding. Larger builds take longer—we give you a timeline with your quote.",
   },
   {
-    q: "Do you only work with certain trades?",
-    a: "We focus on local service businesses—plumbers, electricians, dentists, salons, contractors, and similar. If you serve customers in a geographic area, we can usually help.",
+    q: "Do you only work with certain industries?",
+    a: "We focus on local businesses that serve customers in person in a region—trades, health and beauty, food and retail, professional services, and more. If you need a clear site that drives calls, visits, or bookings, we can usually help.",
   },
   {
     q: "What do I need to get started?",
