@@ -23,6 +23,10 @@ export function resolveSiteUrl(envUrl: string | undefined): string {
 /** Public contact email (shown on site; set CONTACT_TO_EMAIL in production to match). */
 export const SITE_CONTACT_EMAIL = "help@salexpert.co"
 
+/** Public business phone (display + `tel:` href — Twilio / AI calling line). */
+export const SITE_PHONE_DISPLAY = "+1 (478) 347 1221"
+export const SITE_PHONE_TEL = "+14783471221"
+
 /** Primary business location shown on contact page. */
 export const SITE_LOCATION = "Dallas, TX"
 

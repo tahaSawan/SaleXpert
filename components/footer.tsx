@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { XLogo } from "@/components/x-logo"
 import { useCallback } from "react"
+import { SITE_PHONE_DISPLAY, SITE_PHONE_TEL } from "@/lib/site"
 
 export default function Footer() {
   const handleNavClick = useCallback(() => {
@@ -22,6 +23,11 @@ export default function Footer() {
             <p className="text-muted-foreground text-sm leading-relaxed">
               We build websites that help local service businesses turn searches into calls, quotes, and bookings—clear
               offers, fast delivery, straightforward pricing.
+            </p>
+            <p className="text-sm font-medium text-foreground pt-1">
+              <a href={`tel:${SITE_PHONE_TEL}`} className="hover:text-primary hover:underline">
+                {SITE_PHONE_DISPLAY}
+              </a>
             </p>
           </div>
 

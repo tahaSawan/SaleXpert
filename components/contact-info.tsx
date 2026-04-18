@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Mail, Phone, MapPin, Clock } from "lucide-react"
-import { SITE_CONTACT_EMAIL, SITE_LOCATION } from "@/lib/site"
+import { SITE_CONTACT_EMAIL, SITE_LOCATION, SITE_PHONE_DISPLAY, SITE_PHONE_TEL } from "@/lib/site"
 
 export default function ContactInfo() {
   return (
@@ -29,7 +29,12 @@ export default function ContactInfo() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Phone</p>
-              <p className="font-medium text-foreground">1-800-ELEVSITE</p>
+              <p className="font-medium text-foreground">
+                <a href={`tel:${SITE_PHONE_TEL}`} className="hover:text-primary hover:underline">
+                  {SITE_PHONE_DISPLAY}
+                </a>
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">Twilio · AI calling line</p>
             </div>
           </div>
 
