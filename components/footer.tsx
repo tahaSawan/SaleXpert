@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { XLogo } from "@/components/x-logo"
 import { useCallback } from "react"
-import { SITE_PHONE_DISPLAY, SITE_PHONE_TEL } from "@/lib/site"
+import { SITE_LOCATION, SITE_PHONE_DISPLAY, SITE_PHONE_TEL, SITE_RESPONSE_TIME } from "@/lib/site"
 
 export default function Footer() {
   const handleNavClick = useCallback(() => {
@@ -29,6 +29,8 @@ export default function Footer() {
                 {SITE_PHONE_DISPLAY}
               </a>
             </p>
+            <p className="text-sm text-muted-foreground">{SITE_LOCATION}</p>
+            <p className="text-xs text-muted-foreground">{SITE_RESPONSE_TIME}</p>
           </div>
 
           <div className="space-y-3">
@@ -111,9 +113,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border pt-8">
+        <div className="border-t border-border pt-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
           <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
             © 2026 SaleXpert. All rights reserved.
+          </p>
+          <p className="text-xs text-muted-foreground text-center sm:text-right">
+            {SITE_LOCATION} · {SITE_RESPONSE_TIME}
           </p>
         </div>
       </div>

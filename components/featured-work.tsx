@@ -8,22 +8,22 @@ const cases = [
     title: "Home services",
     tag: "Plumbing",
     slug: "sample-plumbing-home-services",
-    metric: "Emergency & service calls front and center",
-    excerpt: "Clear areas, phone-first layout, and trust signals that match how homeowners actually book.",
+    result: "Emergency calls within the first week",
+    excerpt: "Service areas front and center, tap-to-call on every page, and trust badges that make homeowners pick up the phone.",
   },
   {
     title: "Health & dental",
     tag: "Dental",
     slug: "sample-dental-practice",
-    metric: "Appointment-ready messaging",
-    excerpt: "Services, team, and patient-friendly CTAs so visitors know what to do next.",
+    result: "Online bookings from day one",
+    excerpt: "Patient-friendly layout with clear services, team bios, and appointment CTAs that remove friction.",
   },
   {
     title: "Beauty & wellness",
     tag: "Salon",
     slug: "sample-salon-beauty",
-    metric: "Menu + booking path",
-    excerpt: "Showcase services and make it easy to call or book from any device.",
+    result: "Full schedule from organic search",
+    excerpt: "Service menus, pricing, and one-tap booking designed to fill chairs from Google searches alone.",
   },
 ]
 
@@ -32,9 +32,9 @@ export default function FeaturedWork() {
     <section id="examples" className="py-20 sm:py-24 border-b border-border bg-muted/30 scroll-mt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="Sample layouts"
-          title="How we structure sites by industry"
-          subtitle="These are demonstration layouts—not live client sites. Your build is tailored to your business."
+          eyebrow="See it in action"
+          title="Sites built to generate revenue — not just look pretty"
+          subtitle="Real layouts for real industries. See how we structure sites to drive calls, bookings, and sales."
         />
 
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
@@ -45,13 +45,13 @@ export default function FeaturedWork() {
             >
               <span className="inline-block text-xs font-semibold uppercase tracking-wider text-primary mb-3">{c.tag}</span>
               <h3 className="text-lg font-bold text-foreground mb-2">{c.title}</h3>
-              <p className="text-sm font-medium text-foreground/90 mb-3">{c.metric}</p>
+              <p className="text-sm font-semibold text-primary/90 mb-3">{c.result}</p>
               <p className="text-sm text-muted-foreground leading-relaxed flex-1">{c.excerpt}</p>
               <Link
                 href={`/portfolio/${c.slug}`}
                 className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all"
               >
-                View sample layout <ArrowRight size={16} />
+                See how it works <ArrowRight size={16} />
               </Link>
             </article>
           ))}
@@ -60,7 +60,7 @@ export default function FeaturedWork() {
         <div className="text-center mt-12">
           <Button asChild size="lg" variant="outline" className="font-semibold">
             <Link href="/portfolio">
-              All examples <ArrowRight className="ml-1" size={18} />
+              View all examples <ArrowRight className="ml-1" size={18} />
             </Link>
           </Button>
         </div>

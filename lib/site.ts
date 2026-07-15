@@ -30,5 +30,8 @@ export const SITE_PHONE_TEL = "+14783471221"
 /** Primary business location shown on contact page. */
 export const SITE_LOCATION = "Dallas, TX"
 
+/** Shown in header/footer for lead-response expectations. */
+export const SITE_RESPONSE_TIME = "Reply within 1 business day"
+
 export const SITE_DESCRIPTION =
   "SaleXpert builds professional websites for local service businesses—trades, clinics, salons, shops, and more—so more people find you, trust you, and contact you. Clear one-time pricing, mobile-first, ready for Google."

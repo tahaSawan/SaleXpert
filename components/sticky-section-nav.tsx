@@ -10,7 +10,6 @@ const sections = [
   { id: "services", label: "Pricing" },
   { id: "industries", label: "Industries" },
   { id: "examples", label: "Examples" },
-  { id: "testimonials", label: "Client stories" },
   { id: "faq", label: "FAQ" },
   { id: "contact", label: "Contact" },
 ]
@@ -19,7 +18,7 @@ export default function StickySectionNav() {
   return (
     <nav
       aria-label="On this page"
-      className="sticky top-14 sm:top-16 z-40 border-b border-border/80 bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/75"
+      className="sticky top-14 sm:top-[5.75rem] z-40 border-b border-border/80 bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/75"
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center gap-1 overflow-x-auto py-2 sm:py-2.5 scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

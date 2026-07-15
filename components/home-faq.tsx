@@ -4,23 +4,29 @@ import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import Link from "next/link"
 import { SectionHeader } from "@/components/section-header"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 
 const items = [
   {
-    q: "How long until my site goes live?",
-    a: "Most brochure-style sites launch within about one to two weeks after we have your content and branding. Larger builds take longer—we give you a timeline with your quote.",
+    q: "How fast can my site go live?",
+    a: "Most sites launch within 7–14 days. We move fast because every day without a proper website is a day your competitors are winning those customers instead of you.",
   },
   {
-    q: "Do you only work with certain industries?",
-    a: "We focus on local businesses that serve customers in person in a region—trades, health and beauty, food and retail, professional services, and more. If you need a clear site that drives calls, visits, or bookings, we can usually help.",
+    q: "What if I'm not tech-savvy?",
+    a: "Perfect — that's exactly who we built this for. You tell us about your business, we handle everything else. No technical knowledge needed, ever.",
+  },
+  {
+    q: "Will this actually bring me more customers?",
+    a: "Yes. Every site is built with SEO, clear calls-to-action, and mobile optimization. When someone Googles your service in your area, you show up. When they land on your site, they know exactly how to contact you.",
   },
   {
     q: "What do I need to get started?",
-    a: "A short description of your services, service area, logo or photos if you have them, and how you want customers to contact you (call, form, booking). We’ll guide you through the rest.",
+    a: "Just your business name, services you offer, the area you serve, and how you want people to reach you. That's it. We'll handle the rest and guide you through anything else we need.",
   },
   {
-    q: "Is hosting included?",
-    a: "Hosting and domains are usually billed separately so you own your assets. We explain options upfront and can recommend simple setups.",
+    q: "Is there a monthly fee?",
+    a: "No. You pay once, you own your website. Hosting is separate (usually $5–15/month through providers like Vercel or Netlify) — we'll set it up for you and explain everything.",
   },
 ]
 
@@ -31,9 +37,9 @@ export default function HomeFaq() {
     <section id="faq" className="py-20 sm:py-24 border-b border-border bg-background scroll-mt-28">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="Common questions"
-          title="What people ask before starting"
-          subtitle="Straight answers about timelines, scope, and how we work."
+          eyebrow="Got questions?"
+          title="Everything you need to know before you start"
+          subtitle="No jargon, no fine print. Just straight answers."
         />
 
         <div className="space-y-3">
@@ -61,13 +67,16 @@ export default function HomeFaq() {
           ))}
         </div>
 
-        <p className="text-center text-sm text-muted-foreground mt-10">
-          More detail on the{" "}
-          <Link href="/contact" className="text-primary font-medium hover:underline">
-            contact page
-          </Link>
-          .
-        </p>
+        <div className="text-center mt-10">
+          <p className="text-sm text-muted-foreground mb-4">
+            Still have questions? We&apos;ll answer them personally — no bots, no forms.
+          </p>
+          <Button asChild variant="outline" className="font-semibold">
+            <Link href="/contact">
+              Ask us anything <ArrowRight size={16} className="ml-1" />
+            </Link>
+          </Button>
+        </div>
       </div>
     </section>
   )

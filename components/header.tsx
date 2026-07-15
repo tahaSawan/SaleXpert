@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { XLogo } from "@/components/x-logo"
+import { SITE_LOCATION, SITE_RESPONSE_TIME } from "@/lib/site"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -31,6 +32,12 @@ export default function Header() {
         hasScrolled ? "shadow-sm border-border" : "border-border"
       }`}
     >
+      <div className="hidden sm:block border-b border-border/60 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex justify-between items-center text-xs text-muted-foreground">
+          <span>{SITE_LOCATION}</span>
+          <span>{SITE_RESPONSE_TIME}</span>
+        </div>
+      </div>
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 sm:h-16">
           <Link
@@ -89,6 +96,9 @@ export default function Header() {
 
         {isOpen && (
           <nav className="md:hidden pb-4 flex flex-col gap-1 border-t border-border pt-3">
+            <p className="px-1 pb-2 text-xs text-muted-foreground">
+              {SITE_LOCATION} · {SITE_RESPONSE_TIME}
+            </p>
             {[
               { href: "/", label: "Home" },
               { href: "/services", label: "Services" },

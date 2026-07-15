@@ -186,6 +186,55 @@
     animation: none;
   }
 
+  /* Hero floating orbs */
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    33% { transform: translateY(-12px) translateX(6px); }
+    66% { transform: translateY(8px) translateX(-4px); }
+  }
+
+  @keyframes float-medium {
+    0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+    50% { transform: translateY(-18px) translateX(10px) scale(1.05); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px oklch(0.6 0.15 250 / 0.3), 0 0 60px oklch(0.5 0.15 250 / 0.1); }
+    50% { box-shadow: 0 0 30px oklch(0.6 0.15 250 / 0.5), 0 0 80px oklch(0.5 0.15 250 / 0.2); }
+  }
+
+  @keyframes scroll-content {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .hero-float-slow {
+    animation: float-slow 8s ease-in-out infinite;
+  }
+
+  .hero-float-medium {
+    animation: float-medium 6s ease-in-out infinite;
+  }
+
+  .hero-cta-glow {
+    animation: pulse-glow 2.5s ease-in-out infinite;
+  }
+
+  .hero-phone-scroll {
+    animation: scroll-content 20s linear infinite;
+  }
+
+  .hero-shimmer {
+    background: linear-gradient(90deg, transparent 0%, oklch(0.8 0.05 250 / 0.15) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
   /* Hero: rotating word + entrance (respect reduced motion below) */
   @keyframes hero-rotate-word {
     from {
@@ -279,5 +328,12 @@
     animation: none;
     opacity: 1;
     transform: none;
+  }
+  .hero-float-slow,
+  .hero-float-medium,
+  .hero-cta-glow,
+  .hero-phone-scroll,
+  .hero-shimmer {
+    animation: none;
   }
 }

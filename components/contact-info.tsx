@@ -34,7 +34,7 @@ export default function ContactInfo() {
                   {SITE_PHONE_DISPLAY}
                 </a>
               </p>
-              <p className="text-xs text-muted-foreground mt-1">Twilio · AI calling line</p>
+              <p className="text-xs text-muted-foreground mt-1">Mon–Fri · We answer during business hours</p>
             </div>
           </div>
 

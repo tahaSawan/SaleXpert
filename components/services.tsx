@@ -7,46 +7,49 @@ const services = [
   {
     name: "Starter",
     price: "$299",
-    description: "Essential pages to get found and contacted",
+    description: "Get found online and start receiving calls — fast",
     features: [
-      "Professional layout",
-      "Mobile-friendly",
-      "Contact form",
-      "Basic on-page SEO",
-      "Simple analytics setup",
-      "30 days email support",
+      "Professional, conversion-focused layout",
+      "Mobile-optimized (where 80% of searches happen)",
+      "Click-to-call + contact form",
+      "On-page SEO so Google finds you",
+      "Analytics to track every visitor",
+      "30 days of support after launch",
     ],
     highlighted: false,
     icon: Smartphone,
+    cta: "Start with Starter",
   },
   {
     name: "Professional",
     price: "$599",
-    description: "Best for growing local businesses",
+    description: "The full package to dominate your local market",
     features: [
-      "Everything in Starter",
-      "More pages (services, about, service area)",
-      "Reviews / testimonials section",
-      "Social links & Google Business alignment",
-      "90 days support",
-      "Content tweaks after launch",
+      "Everything in Starter, plus:",
+      "Dedicated service, about & area pages",
+      "Reviews & testimonials that build instant trust",
+      "Google Business profile alignment",
+      "90 days of priority support",
+      "Content updates included after launch",
     ],
     highlighted: true,
     icon: Zap,
+    cta: "Get the Pro package",
   },
   {
     name: "Enterprise",
     price: "$999",
-    description: "When you need more customization",
+    description: "Maximum firepower for serious growth",
     features: [
-      "Everything in Professional",
-      "Custom sections (booking, FAQs, galleries)",
-      "Priority support",
-      "Longer support window",
-      "Ongoing update options (as agreed)",
+      "Everything in Professional, plus:",
+      "Custom booking, galleries & FAQ sections",
+      "Priority support — we respond first",
+      "Extended support window",
+      "Ongoing updates as your business grows",
     ],
     highlighted: false,
     icon: Globe,
+    cta: "Go Enterprise",
   },
 ]
 
@@ -57,9 +60,9 @@ export default function Services() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="Pricing"
-          title="One-time website packages"
-          subtitle="Pick a tier based on pages and features. Hosting and domain are usually separate—we explain that upfront."
+          eyebrow="Transparent pricing"
+          title="One payment. No subscriptions. No surprises."
+          subtitle="Every dollar goes into building a site that pays for itself in new customers. Pick the package that fits your goals."
         />
 
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
@@ -74,7 +77,7 @@ export default function Services() {
               >
                 {service.highlighted && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded-full">
-                    Most popular
+                    Best value
                   </div>
                 )}
 
@@ -96,7 +99,7 @@ export default function Services() {
                     className="w-full mb-8 font-semibold h-11"
                     variant={service.highlighted ? "default" : "outline"}
                   >
-                    <Link href="/contact">Get a quote for this plan</Link>
+                    <Link href="/contact">{service.cta}</Link>
                   </Button>
 
                   <div className="space-y-3 flex-1">
@@ -112,6 +115,10 @@ export default function Services() {
             )
           })}
         </div>
+
+        <p className="text-center text-sm text-muted-foreground mt-8">
+          Not sure which to pick? Tell us your goals — we&apos;ll recommend the right fit. Zero pressure.
+        </p>
       </div>
     </section>
   )

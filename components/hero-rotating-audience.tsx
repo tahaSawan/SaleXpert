@@ -7,13 +7,12 @@ const AUDIENCES = [
   "Dentists",
   "Electricians",
   "Salons",
-  "HVAC",
-  "Retail",
+  "HVAC pros",
+  "Restaurants",
   "Contractors",
   "Clinics",
 ] as const
 
-/** "We serve [Plumbers]" — word cycles; respects prefers-reduced-motion. */
 export default function HeroRotatingAudience() {
   const [index, setIndex] = useState(0)
   const [reduceMotion, setReduceMotion] = useState(false)
@@ -38,7 +37,7 @@ export default function HeroRotatingAudience() {
 
   return (
     <h1 className="text-3xl sm:text-4xl lg:text-[2.85rem] lg:leading-[1.12] font-bold tracking-tight text-center lg:text-left">
-      <span className="text-white">We serve </span>
+      <span className="text-white">Websites that get </span>
       <span
         key={reduceMotion ? "static" : word}
         className="hero-rotate-word inline-block min-w-[11ch] text-left text-sky-300"
@@ -47,6 +46,8 @@ export default function HeroRotatingAudience() {
       >
         {reduceMotion ? "local businesses" : word}
       </span>
+      <br />
+      <span className="text-white">more customers</span>
     </h1>
   )
 }
