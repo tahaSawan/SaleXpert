@@ -57,9 +57,7 @@ export default function Header() {
             {[
               { href: "/", label: "Home" },
               { href: "/services", label: "Services" },
-              { href: "/portfolio", label: "Portfolio" },
               { href: "/about", label: "About" },
-              { href: "/blog", label: "Blog" },
               { href: "/contact", label: "Contact" },
             ].map((item) => (
               <Link
@@ -102,9 +100,7 @@ export default function Header() {
             {[
               { href: "/", label: "Home" },
               { href: "/services", label: "Services" },
-              { href: "/portfolio", label: "Portfolio" },
               { href: "/about", label: "About" },
-              { href: "/blog", label: "Blog" },
               { href: "/contact", label: "Contact" },
             ].map((item) => (
               <Link

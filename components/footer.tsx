@@ -12,8 +12,8 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-muted/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-12">
-          <div className="space-y-4 col-span-2 md:col-span-1 lg:col-span-1">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          <div className="space-y-4 col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 [&_svg]:block">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary">
                 <XLogo size={38} variant="onPrimary" />
@@ -21,8 +21,7 @@ export default function Footer() {
               <span className="font-semibold text-lg text-foreground leading-none translate-y-[0.5px]">SaleXpert</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              We build websites that help local service businesses turn searches into calls, quotes, and bookings—clear
-              offers, fast delivery, straightforward pricing.
+              Websites that turn local searches into calls, quotes, and bookings. One-time pricing. No fluff.
             </p>
             <p className="text-sm font-medium text-foreground pt-1">
               <a href={`tel:${SITE_PHONE_TEL}`} className="hover:text-primary hover:underline">
@@ -38,22 +37,12 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/services" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors">
-                  Services
+                  Services & Pricing
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors">
-                  Portfolio
-                </Link>
-              </li>
-              <li>
-                <Link href="/#services" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors">
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link href="/#services" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors">
-                  Features
+                <Link href="/contact" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors">
+                  Get a Quote
                 </Link>
               </li>
             </ul>
@@ -68,29 +57,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors">
                   Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-3">
-            <h4 className="font-semibold text-foreground text-sm">Resources</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/blog" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" onClick={handleNavClick} className="text-muted-foreground hover:text-foreground transition-colors">
-                  FAQ
                 </Link>
               </li>
             </ul>

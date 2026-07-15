@@ -1,5 +1,4 @@
-import Link from "next/link"
-import { Mail, Phone, MapPin, Clock } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, ShieldCheck } from "lucide-react"
 import { SITE_CONTACT_EMAIL, SITE_LOCATION, SITE_PHONE_DISPLAY, SITE_PHONE_TEL } from "@/lib/site"
 
 export default function ContactInfo() {
@@ -53,37 +52,30 @@ export default function ContactInfo() {
               <Clock className="text-primary" size={20} />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Hours</p>
-              <p className="font-medium text-foreground">Mon–Fri, 9am–6pm CT</p>
+              <p className="text-sm text-muted-foreground">Response time</p>
+              <p className="font-medium text-foreground">Under 2 hours</p>
+              <p className="text-xs text-muted-foreground mt-1">During business hours · Mon–Fri 9am–6pm CT</p>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Trust reinforcement */}
       <div className="rounded-xl border border-border bg-card p-6 sm:p-8">
-        <h3 className="text-base font-semibold text-foreground mb-3">Quick links</h3>
-        <ul className="space-y-2 text-sm">
-          <li>
-            <Link href="/services" className="text-primary font-medium hover:underline">
-              Services & pricing
-            </Link>
-          </li>
-          <li>
-            <Link href="/portfolio" className="text-primary font-medium hover:underline">
-              Example sites
-            </Link>
-          </li>
-          <li>
-            <Link href="/about" className="text-primary font-medium hover:underline">
-              About
-            </Link>
-          </li>
-          <li>
-            <Link href="/blog" className="text-primary font-medium hover:underline">
-              Blog
-            </Link>
-          </li>
-        </ul>
+        <div className="flex items-start gap-3">
+          <div className="w-9 h-9 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <ShieldCheck className="text-green-600" size={18} />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-foreground mb-1">Our promise to you</h3>
+            <ul className="space-y-1.5 text-xs text-muted-foreground">
+              <li>Clear scope & pricing before you pay</li>
+              <li>7-day money-back guarantee</li>
+              <li>Post-launch support included</li>
+              <li>You own everything we build</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   )

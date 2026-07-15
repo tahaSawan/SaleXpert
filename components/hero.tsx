@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowRight, CheckCircle2, Phone } from "lucide-react"
 import HeroRotatingAudience from "@/components/hero-rotating-audience"
 import HeroPhoneMockup from "@/components/hero-phone-mockup"
+import HeroCanvasBg from "@/components/hero-canvas-bg"
 import { SITE_PHONE_DISPLAY, SITE_PHONE_TEL } from "@/lib/site"
 
 const benefits = [
@@ -14,7 +15,10 @@ const benefits = [
 export default function Hero() {
   return (
     <section id="overview" className="relative overflow-hidden bg-slate-950 text-white pt-14 sm:pt-20 pb-16 sm:pb-24 scroll-mt-28">
-      {/* Animated gradient background */}
+      {/* Particle network canvas */}
+      <HeroCanvasBg />
+
+      {/* Gradient overlays */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_90%_60%_at_80%_-20%,oklch(0.45_0.2_250/0.35),transparent)]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_40%_at_10%_100%,oklch(0.35_0.08_250/0.4),transparent)]" />
 

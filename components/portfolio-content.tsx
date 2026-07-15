@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo, useState, useRef, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
@@ -9,9 +9,46 @@ import { PageHero } from "@/components/page-hero"
 import InnerPageCta from "@/components/inner-page-cta"
 import { Breadcrumbs } from "@/components/breadcrumbs"
 import { portfolioCases } from "@/lib/portfolio-cases"
+import { useScrollReveal } from "@/hooks/use-scroll-reveal"
+
+function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current
+    if (!card) return
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    const rotateX = ((y - centerY) / centerY) * -4
+    const rotateY = ((x - centerX) / centerX) * 4
+    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`
+  }, [])
+
+  const handleMouseLeave = useCallback(() => {
+    const card = cardRef.current
+    if (!card) return
+    card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)"
+  }, [])
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`transition-transform duration-200 ease-out ${className ?? ""}`}
+      style={{ transformStyle: "preserve-3d" }}
+    >
+      {children}
+    </div>
+  )
+}
 
 export default function PortfolioContent() {
   const [selectedCategory, setSelectedCategory] = useState("all")
+  const { ref: gridRef, isVisible } = useScrollReveal<HTMLDivElement>({ threshold: 0.05 })
 
   const categories = useMemo(() => {
     const cats = new Set(portfolioCases.map((c) => c.category))
@@ -32,7 +69,7 @@ export default function PortfolioContent() {
       <PageHero
         eyebrow="Portfolio"
         title="Sample website layouts"
-        subtitle="Industry-based examples showing structure and flow—not real client brands. Pick one to see how we’d approach that type of business."
+        subtitle="Industry-based examples showing structure and flow—not real client brands. Pick one to see how we'd approach that type of business."
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
@@ -42,10 +79,10 @@ export default function PortfolioContent() {
               key={category}
               type="button"
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-md text-sm font-medium border transition-colors ${
+              className={`px-4 py-2 rounded-md text-sm font-medium border transition-all duration-300 ${
                 selectedCategory === category
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
+                  ? "bg-primary text-primary-foreground border-primary shadow-md shadow-primary/20"
+                  : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:text-foreground hover:shadow-sm"
               }`}
             >
               {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -53,48 +90,53 @@ export default function PortfolioContent() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {filteredItems.map((item) => (
-            <article
-              key={item.slug}
-              className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/30 transition-colors flex flex-col"
-            >
-              <Link href={`/portfolio/${item.slug}`} className="relative block h-48 sm:h-52 overflow-hidden">
-                <Image
-                  src={item.image || "/placeholder.svg"}
-                  alt=""
-                  fill
-                  className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
-                />
-              </Link>
-
-              <div className="p-5 flex flex-col flex-1">
-                <span className="inline-block text-xs font-medium text-primary mb-2 capitalize">{item.category}</span>
-                <h2 className="text-lg font-semibold text-foreground mb-1">
-                  <Link href={`/portfolio/${item.slug}`} className="hover:text-primary transition-colors">
-                    {item.title}
-                  </Link>
-                </h2>
-                <p className="text-sm text-muted-foreground mb-4 flex-1">{item.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {item.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 rounded-md bg-muted text-xs text-muted-foreground border border-border"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <Link
-                  href={`/portfolio/${item.slug}`}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all"
-                >
-                  View sample layout
-                  <ArrowRight size={16} />
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {filteredItems.map((item, index) => (
+            <TiltCard key={item.slug}>
+              <article
+                className={`group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/30 transition-all duration-700 ease-out flex flex-col ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                }`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                <Link href={`/portfolio/${item.slug}`} className="relative block h-48 sm:h-52 overflow-hidden">
+                  <Image
+                    src={item.image || "/placeholder.svg"}
+                    alt=""
+                    fill
+                    className="object-cover group-hover:scale-[1.05] transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Link>
-              </div>
-            </article>
+
+                <div className="p-5 flex flex-col flex-1">
+                  <span className="inline-block text-xs font-medium text-primary mb-2 capitalize">{item.category}</span>
+                  <h2 className="text-lg font-semibold text-foreground mb-1">
+                    <Link href={`/portfolio/${item.slug}`} className="hover:text-primary transition-colors">
+                      {item.title}
+                    </Link>
+                  </h2>
+                  <p className="text-sm text-muted-foreground mb-4 flex-1">{item.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {item.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-1 rounded-md bg-muted text-xs text-muted-foreground border border-border"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <Link
+                    href={`/portfolio/${item.slug}`}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all"
+                  >
+                    View sample layout
+                    <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </article>
+            </TiltCard>
           ))}
         </div>
 

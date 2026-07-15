@@ -1,7 +1,10 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { CheckCircle2, Zap, Smartphone, Globe } from "lucide-react"
+import { CheckCircle2, Zap, Smartphone, Globe, ShieldCheck } from "lucide-react"
 import { SectionHeader } from "@/components/section-header"
+import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 
 const services = [
   {
@@ -54,6 +57,8 @@ const services = [
 ]
 
 export default function Services() {
+  const { ref, isVisible } = useScrollReveal<HTMLDivElement>({ threshold: 0.1 })
+
   return (
     <section id="services" className="relative py-20 sm:py-24 overflow-hidden border-b border-border scroll-mt-28">
       <div className="absolute inset-0 gradient-section-soft -z-10" />
@@ -65,15 +70,20 @@ export default function Services() {
           subtitle="Every dollar goes into building a site that pays for itself in new customers. Pick the package that fits your goals."
         />
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div ref={ref} className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => {
             const Icon = service.icon
             return (
               <div
                 key={index}
-                className={`relative rounded-xl flex flex-col h-full ${
+                className={`relative rounded-xl flex flex-col h-full transition-all duration-700 ease-out ${
                   service.highlighted ? "border-2 border-primary bg-card shadow-md" : "glass hover:border-primary/20"
-                }`}
+                } ${
+                  isVisible
+                    ? "opacity-100 translate-y-0 scale-100"
+                    : "opacity-0 translate-y-8 scale-95"
+                } ${service.highlighted && isVisible ? "md:-translate-y-2 md:shadow-xl" : ""}`}
+                style={{ transitionDelay: `${index * 150}ms` }}
               >
                 {service.highlighted && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded-full">
@@ -116,9 +126,17 @@ export default function Services() {
           })}
         </div>
 
-        <p className="text-center text-sm text-muted-foreground mt-8">
-          Not sure which to pick? Tell us your goals — we&apos;ll recommend the right fit. Zero pressure.
-        </p>
+        <div className="mt-10 mx-auto max-w-lg flex items-center gap-4 rounded-xl border border-border bg-card p-5 shadow-sm">
+          <div className="flex-shrink-0 w-11 h-11 rounded-full bg-green-500/10 flex items-center justify-center">
+            <ShieldCheck className="text-green-600" size={22} />
+          </div>
+          <div>
+            <p className="text-sm font-bold text-foreground">100% Satisfaction Guarantee</p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Not happy with the result? Full refund within 7 days of delivery — no questions asked.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   )

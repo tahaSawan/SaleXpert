@@ -7,7 +7,7 @@ import { Loader2, Send } from "lucide-react"
 import { toast } from "sonner"
 
 const inputClass =
-  "w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-60"
+  "w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary focus:shadow-[0_0_0_3px_oklch(0.45_0.14_250/0.1)] transition-shadow duration-200 disabled:opacity-60"
 
 export default function ContactForm() {
   const [formState, setFormState] = useState({

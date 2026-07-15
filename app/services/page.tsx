@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Breadcrumbs } from "@/components/breadcrumbs"
 import { PageHero } from "@/components/page-hero"
 import Services from "@/components/services"
-import Features from "@/components/features"
 import ServiceComparison from "@/components/service-comparison"
 import InnerPageCta from "@/components/inner-page-cta"
 import Footer from "@/components/footer"
@@ -20,14 +19,16 @@ export default function ServicesPage() {
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services" }]} />
       </div>
       <PageHero
-        eyebrow="Services"
-        title="Plans built for local service businesses"
-        subtitle="Pick the package that matches how many pages you need and how much you want to grow. Hosting and domain are usually separate—we explain that in your quote."
+        eyebrow="Services & Pricing"
+        title="One payment. A website that pays for itself."
+        subtitle="No monthly fees, no hidden costs. Pick a package, tell us about your business, and we build a site designed to make your phone ring."
       />
       <Services />
       <ServiceComparison />
-      <Features />
-      <InnerPageCta />
+      <InnerPageCta
+        title="Not sure which package fits?"
+        subtitle="Tell us your goals — we'll recommend the right one and send a clear quote."
+      />
       <Footer />
     </main>
   )
